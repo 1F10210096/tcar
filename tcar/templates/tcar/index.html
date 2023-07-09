@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>T-car Sample</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark navbar-static-top">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">T-Car sample</a>
+      </div>
+    </nav>
+
+    <main class="container-fluid mt-3">
+      <div class="tcar-main">
+        <h1>T-Carの一覧</h1>
+        <div class="table-responsive-sm">
+          <table class="table table-striped">
+            <tr class="table-dark">
+              <th scope="col">名前</th>
+              <th scope="col">操作</th>
+              <th scope="col">ヘッドライト</th>
+            </tr>
+            <tr>
+              {% for object in object_list %}
+              <td> {{ object.device }} </td>
+              <td>
+                <button onclick="sendEvent({{object.id}}, 'start-running')" type="button" class="btn btn-outline-primary">走行開始</button>
+                <button onclick="sendEvent({{object.id}}, 'stop-running')" type="button" class="btn btn-outline-primary">走行停止</button>
+              </td>
+              <td>
+                <button onclick="sendEvent({{object.id}}, 'turn-red')" type="button" class="btn btn-danger">赤</button>
+                <button onclick="sendEvent({{object.id}}, 'turn-green')" type="button" class="btn btn-success">緑</button>
+                <button onclick="sendEvent({{object.id}}, 'turn-blue')" type="button" class="btn btn-primary">青</button>
+                <button onclick="sendEvent({{object.id}}, 'turn-white')" type="button" class="btn btn-light">白</button>
+                <button onclick="sendEvent({{object.id}}, 'turn-off')" type="button" class="btn btn-dark">消灯</button>
+              </td>
+            </tr>
+            {% endfor %}
+          </table>
+        </div>
+      </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
+    <script src="{% static 'tcar/js/event.js' %}"></script>
+  </body>
+</html>

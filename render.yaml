@@ -1,0 +1,22 @@
+databases:
+  - name: tcar-db-orig
+    plan: free
+    databaseName: tcar_db
+    user: tcar_db
+
+services:
+  - type: web
+    name: tcar-web-orig
+    env: python
+    plan: free
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn project.wsgi:application"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: tcar-db-orig
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: WEB_CONCURRENCY
+        value: 4
