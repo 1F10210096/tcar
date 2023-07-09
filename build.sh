@@ -6,4 +6,5 @@ pip install -r requirements.txt
 
 python manage.py collectstatic --no-input
 python manage.py migrate
-python manage.py createsuperuser --noinput
+python manage.py loaddata tcar/fixtures/data.json
+#python manage.py createsuperuser --noinput
